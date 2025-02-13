@@ -30,17 +30,17 @@ public class ExtentReportManager implements ITestListener
 
         sparkReporter=new ExtentSparkReporter(".\\reports\\"+repName);//specify location of the report
 
-        sparkReporter.config().setDocumentTitle("RestAssuredAutomationProject"); // Title of report
-        sparkReporter.config().setReportName("Pet Store Users API"); // name of the report
+        sparkReporter.config().setDocumentTitle("FIDO API TEST"); // Title of report
+        sparkReporter.config().setReportName("Video Game DB 2022 API"); // name of the report
         sparkReporter.config().setTheme(Theme.DARK);
 
         extent=new ExtentReports();
         extent.attachReporter(sparkReporter);
-        extent.setSystemInfo("Application", "Pest Store Users API");
+        extent.setSystemInfo("Application", "Video Game DB 2022 API");
         extent.setSystemInfo("Operating System", System.getProperty("os.name"));
         extent.setSystemInfo("User Name", System.getProperty("user.name"));
         extent.setSystemInfo("Environemnt","QA");
-        extent.setSystemInfo("user","pavan");
+        extent.setSystemInfo("user","Felix");
     }
 
 
