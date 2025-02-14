@@ -1,80 +1,76 @@
 package utilities;
 
-//Extent report 5.x
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class ExtentReportManager implements ITestListener
-{
-    public ExtentSparkReporter sparkReporter;
-    public ExtentReports extent;
-    public ExtentTest test;
+public class ExtentReportManager implements ITestListener {
+    private static final String REPORT_PATH = ".\\reports\\";
+    private ExtentSparkReporter reporter;
+    private ExtentReports report;
+    private ExtentTest test;
+    private String reportName;
 
-    String repName;
+    @Override
+    public void onStart(ITestContext testContext) {
+        reportName = "Test-Report-" + getCurrentTimeStamp() + ".html";
+        reporter = new ExtentSparkReporter(REPORT_PATH + reportName);
+        configureReporter(reporter);
 
-    public void onStart(ITestContext testContext)
-    {
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());//time stamp
-        repName="Test-Report-"+timeStamp+".html";
-
-        sparkReporter=new ExtentSparkReporter(".\\reports\\"+repName);//specify location of the report
-
-        sparkReporter.config().setDocumentTitle("FIDO API TEST"); // Title of report
-        sparkReporter.config().setReportName("Video Game DB 2022 API"); // name of the report
-        sparkReporter.config().setTheme(Theme.DARK);
-
-        extent=new ExtentReports();
-        extent.attachReporter(sparkReporter);
-        extent.setSystemInfo("Application", "Video Game DB 2022 API");
-        extent.setSystemInfo("Operating System", System.getProperty("os.name"));
-        extent.setSystemInfo("User Name", System.getProperty("user.name"));
-        extent.setSystemInfo("Environemnt","QA");
-        extent.setSystemInfo("user","Felix");
+        report = new ExtentReports();
+        report.attachReporter(reporter);
+        setSystemInfo();
     }
 
-
-    public void onTestSuccess(ITestResult result)
-    {
-        test=extent.createTest(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.createNode(result.getName());
-        test.log(Status.PASS, "Test Passed");
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        createTestNode(result, Status.PASS, "Test Passed");
     }
 
-    public void onTestFailure(ITestResult result)
-    {
-        test=extent.createTest(result.getName());
-        test.createNode(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.log(Status.FAIL, "Test Failed");
+    @Override
+    public void onTestFailure(ITestResult result) {
+        createTestNode(result, Status.FAIL, "Test Failed");
         test.log(Status.FAIL, result.getThrowable().getMessage());
     }
 
-    public void onTestSkipped(ITestResult result)
-    {
-        test=extent.createTest(result.getName());
-        test.createNode(result.getName());
-        test.assignCategory(result.getMethod().getGroups());
-        test.log(Status.SKIP, "Test Skipped");
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        createTestNode(result, Status.SKIP, "Test Skipped");
         test.log(Status.SKIP, result.getThrowable().getMessage());
     }
 
-    public void onFinish(ITestContext testContext)
-    {
-        extent.flush();
+    @Override
+    public void onFinish(ITestContext testContext) {
+        report.flush();
     }
 
+    private String getCurrentTimeStamp() {
+        return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+    }
+
+    private void configureReporter(ExtentSparkReporter reporter) {
+        reporter.config().setDocumentTitle("FIDO API TEST");
+        reporter.config().setReportName("Video Game DB 2022 API");
+        reporter.config().setTheme(Theme.DARK);
+    }
+
+    private void setSystemInfo() {
+        report.setSystemInfo("Application", "Video Game DB 2022 API");
+        report.setSystemInfo("Operating System", System.getProperty("os.name"));
+        report.setSystemInfo("Environment", "QA");
+        report.setSystemInfo("User", "Felix");
+    }
+
+    private void createTestNode(ITestResult result, Status status, String message) {
+        test = report.createTest(result.getName());
+        test.assignCategory(result.getMethod().getGroups());
+        test.log(status, message);
+    }
 }
-
-
