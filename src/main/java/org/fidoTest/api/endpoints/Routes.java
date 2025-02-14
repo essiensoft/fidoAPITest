@@ -1,17 +1,18 @@
 package org.fidoTest.api.endpoints;
 
 public class Routes {
-    public static String BASE_URL = "https://www.videogamedb.uk/";
+    private static final String BASE_URL = "https://www.videogamedb.uk:443";
+    private static final String API_PATH = "/api";
+    private static final String VIDEO_GAME_PATH = API_PATH + "/videogame";
+    private static final String AUTHENTICATE_PATH = API_PATH + "/authenticate";
 
-    //    Api Authentication Controller
-    public static String POST_URL = BASE_URL+"/api/authenticate";
-    //    Api Video Games Controller
-    public static String GET_URL = BASE_URL+"/api/videogame";
-    public static String POST_URL_GAME = BASE_URL+"/api/videogame";
-    public static String GET_URL_GAME = BASE_URL+"api/videogame/{id}";
-    public static String PUT_URL_GAME = BASE_URL+"api/videogame/{id}";
-    public static String DELETE_URL_GAME = BASE_URL+"api/videogame/{id}";
+    // API Authentication Controller
+    public static final String AUTHENTICATE_URL = BASE_URL + AUTHENTICATE_PATH;
 
-
-
+    // API Video Games Controller
+    public static final String GET_ALL_GAMES_URL = BASE_URL + VIDEO_GAME_PATH;
+    public static final String CREATE_GAME_URL = BASE_URL + VIDEO_GAME_PATH;
+    public static final String GET_GAME_BY_ID_URL = BASE_URL + VIDEO_GAME_PATH + "/{id}";
+    public static final String UPDATE_GAME_URL = BASE_URL + VIDEO_GAME_PATH + "/{id}";
+    public static final String DELETE_GAME_URL = BASE_URL + VIDEO_GAME_PATH + "/{id}";
 }

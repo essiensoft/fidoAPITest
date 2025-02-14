@@ -9,7 +9,7 @@
     <test thread-count="5" name="FidoAPITest">
         <classes>
 
-
+<class name="org.fidoTest.TestCases.AuthenticateTC"></class>
 
         </classes>
     </test> <!-- FidoAPITest -->
