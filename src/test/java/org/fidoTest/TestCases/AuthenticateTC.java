@@ -54,7 +54,7 @@ public class AuthenticateTC extends AbstractTest {
      * - The response time is less than 2 seconds.
      */
     @Test
-    @Description("Test for authentication")
+    @Description("TC__01 - Test for authentication")
     public void testAuthenticateUser() {
         logger.info("Authenticating user");
         Response response = getAuthenticationResponse();

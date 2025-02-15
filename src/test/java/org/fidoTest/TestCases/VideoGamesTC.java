@@ -104,7 +104,7 @@ public class VideoGamesTC extends AbstractTest {
     * This test assumes a valid payload is provided, and the authentication token is set before execution.
     */
    @Test(priority = 1)
-   @Description("Test for creating a game")
+   @Description("TC__02 -Test for creating a game")
    public void createGameTest() {
       logger.info("Creating a game");
       Response response = createGame();
@@ -129,7 +129,7 @@ public class VideoGamesTC extends AbstractTest {
     * Logs are included for debugging purposes to confirm the response details.
     */
    @Test(priority = 2)
-   @Description("Test for listing all games")
+   @Description("TC__03 -Test for listing all games")
    public void testListAllGames() {
       logger.info("Listing all games");
       Response response = getListAllGamesResponse();
@@ -153,7 +153,7 @@ public class VideoGamesTC extends AbstractTest {
     * - {@code @Description}: Provides a high-level description of the test case.
     */
    @Test(priority = 3)
-   @Description("Test for getting a game by id")
+   @Description("TC__04 -Test for getting a game by id")
    public void getGameByIdTest(){
       logger.info("Getting game with id: " + videoGamesPayload.getId());
 	   Response response=getGameByIdResponse();
@@ -177,7 +177,7 @@ public class VideoGamesTC extends AbstractTest {
     * returns the correct response.
     */
    @Test(priority = 4)
-   @Description("Test for updating a game by id")
+   @Description("TC__04 -Test for updating a game by id")
    public void testUpdateGame(){
       logger.info("Updating game with id: " + videoGamesPayload.getId());
       Response response=updateGame();
@@ -201,7 +201,7 @@ public class VideoGamesTC extends AbstractTest {
     * Priority Level: 5
     */
    @Test(priority = 5)
-   @Description("Test for deleting a game by id")
+   @Description("TC__05 -Test for deleting a game by id")
    public void testDeleteGame(){
       logger.info("Deleting game with id: " + videoGamesPayload.getId());
       Response response=deleteGame();
