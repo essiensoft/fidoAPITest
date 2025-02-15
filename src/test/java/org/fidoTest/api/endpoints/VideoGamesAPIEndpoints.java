@@ -47,7 +47,19 @@ public class VideoGamesAPIEndpoints  {
         return requestSpec.when().get(GET_GAME_BY_ID_URL);
     }
 
+    public static Response updateVideoGame(VideoGamesDetails gameDetails) {
+        return buildAuthorizedRequest(gameDetails.getToken())
+                .pathParam("id", gameDetails.getId())
+                .body(gameDetails)
+                .put(UPDATE_GAME_URL);
+    }
 
+    public static Response deleteVideoGame(VideoGamesDetails gameDetails) {
+        return buildAuthorizedRequest(gameDetails.getToken())
+                .pathParam("id", gameDetails.getId())
+                .delete(DELETE_GAME_URL);
+
+    }
     /**
      * Builds an authorized request with default settings.
      *

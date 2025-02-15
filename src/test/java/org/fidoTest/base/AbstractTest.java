@@ -15,8 +15,8 @@ public class AbstractTest {
     // Shared token field
     public static String token;
 
-       Faker faker;
-    public Logger LOGGER; // Logging instance
+    Faker faker;
+    public Logger logger; // Logging instance
     public UserCredentials userPayload;
     public VideoGamesDetails videoGamesPayload;
 
@@ -24,7 +24,7 @@ public class AbstractTest {
     public void setup() {
         initializeUserPayload();
         initializeVideoGamePayload();
-        LOGGER = LogManager.getLogger(this.getClass());
+        logger = LogManager.getLogger(this.getClass());
     }
 
     private void initializeUserPayload() {
