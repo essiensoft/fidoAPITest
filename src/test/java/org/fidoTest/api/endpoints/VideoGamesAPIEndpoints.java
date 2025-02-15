@@ -27,13 +27,13 @@ public class VideoGamesAPIEndpoints  {
     /**
      * Creates a new video game with authorization.
      *
-     * @param videoGameDetails Details of the video game to be created.
+     * @param gameDetails Details of the video game to be created.
      * Authorization token.
      * @return Response of the game creation.
      */
-    public static Response createVideoGame(VideoGamesDetails videoGameDetails) {
-        return buildAuthorizedRequest(videoGameDetails.getToken())
-                .body(videoGameDetails)
+    public static Response createVideoGame(VideoGamesDetails gameDetails) {
+        return buildAuthorizedRequest(gameDetails.getToken())
+                .body(gameDetails)
                 .post(CREATE_GAME_URL)
                 .then()
                 .log().all() // Logs for debugging during tests.
@@ -41,12 +41,12 @@ public class VideoGamesAPIEndpoints  {
                 .response();
     }
 
-    public static Response getVideoGame(VideoGamesDetails videoGameDetails){
-        Response response=given()
-                .pathParam("id", videoGameDetails.getId())
-                .when().get(GET_GAME_BY_ID_URL);
-        return response;
+    public static Response getVideoGame(VideoGamesDetails gameDetails) {
+        RequestSpecification requestSpec = buildAuthorizedRequest(gameDetails.getToken())
+                .pathParam("id", gameDetails.getId());
+        return requestSpec.when().get(GET_GAME_BY_ID_URL);
     }
+
 
     /**
      * Builds an authorized request with default settings.
