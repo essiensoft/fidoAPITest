@@ -5,6 +5,8 @@ import org.fidoTest.api.endpoints.AuthenticateEndpoints;
 import org.fidoTest.base.AbstractTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.fidoTest.api.payload.VideoGamesDetails;
+
 
 /**
  * Author: Felix
@@ -17,6 +19,7 @@ import org.testng.annotations.Test;
 public class AuthenticateTC extends AbstractTest {
 
     private static final String EXPECTED_CONTENT_TYPE = "application/json";
+    private final VideoGamesDetails videoGamesDetails = new VideoGamesDetails();
 
     private Response getAuthenticationResponse() {
         return AuthenticateEndpoints.authenticateUser(userPayload);
@@ -27,6 +30,9 @@ public class AuthenticateTC extends AbstractTest {
         Response response = getAuthenticationResponse();
         response.then().log().all();
         Assert.assertEquals(response.statusCode(), 200);
+
+        token = response.jsonPath().getString("token");
+        Assert.assertNotNull(token, "Authentication token is not generated!");
     }
 
     @Test(priority = 2)

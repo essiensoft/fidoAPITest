@@ -10,7 +10,7 @@
         <classes>
 
 <class name="org.fidoTest.TestCases.AuthenticateTC"></class>
-
+            <class name="org.fidoTest.TestCases.VideoGamesTC"></class>
         </classes>
     </test> <!-- FidoAPITest -->
 </suite> <!-- TestSuite -->
